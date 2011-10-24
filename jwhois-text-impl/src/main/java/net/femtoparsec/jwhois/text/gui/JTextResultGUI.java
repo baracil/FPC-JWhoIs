@@ -1,0 +1,81 @@
+package net.femtoparsec.jwhois.text.gui;
+
+import net.femtoparsec.jwhois.Source;
+import net.femtoparsec.jwhois.WhoIsResultHelper;
+import net.femtoparsec.jwhois.gui.JResultGUI;
+import net.femtoparsec.jwhois.gui.JWhoIsGUIModel;
+import net.femtoparsec.jwhois.text.TextSourceResult;
+
+import javax.swing.*;
+import java.awt.*;
+
+/*
+ *
+ *     Copyright (c) 2011, Bastien Aracil
+ *     All rights reserved.
+ *     New BSD license. See http://en.wikipedia.org/wiki/Bsd_license
+ *
+ *     Redistribution and use in source and binary forms, with or without
+ *     modification, are permitted provided that the following conditions are met:
+ *        * Redistributions of source code must retain the above copyright
+ *          notice, this list of conditions and the following disclaimer.
+ *        * Redistributions in binary form must reproduce the above copyright
+ *          notice, this list of conditions and the following disclaimer in the
+ *          documentation and/or other materials provided with the distribution.
+ *        * The name of Bastien Aracil may not be used to endorse or promote products
+ *          derived from this software without specific prior written permission.
+ *
+ *     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ *     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ *     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ *     DISCLAIMED. IN NO EVENT SHALL BASTIEN ARACIL BE LIABLE FOR ANY
+ *     DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *     ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ *     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * /
+ */
+
+/**
+ * User: Bastien Aracil
+ * Date: 24/10/11
+ */
+public class JTextResultGUI extends JResultGUI<TextSourceResult> {
+
+    private final JTextArea textArea;
+
+    public JTextResultGUI(Source source, JWhoIsGUIModel<TextSourceResult> model) {
+        super(source, model);
+
+        this.textArea = new JTextArea();
+        this.textArea.setFont(new Font("Courier", Font.PLAIN, 10));
+
+        this.setLayout(new BorderLayout());
+        this.add(new JScrollPane(textArea));
+    }
+
+    @Override
+    public void onAdd() {
+        this.clearTextArea();
+    }
+
+    @Override
+    public void onSourceResult(WhoIsResultHelper<TextSourceResult> helper) {
+        this.clearTextArea();
+
+        TextSourceResult result = helper.getResult(this.getSource());
+
+        if (result != null) {
+            for (String lines : result.getText()) {
+                this.textArea.append(lines);
+                this.textArea.append("\n");
+            }
+        }
+    }
+
+    private void clearTextArea() {
+        this.textArea.setText("");
+    }
+}

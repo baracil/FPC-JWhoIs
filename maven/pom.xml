@@ -1,0 +1,189 @@
+<!--
+  ~ /*
+  ~     Copyright (c) 2011, Bastien Aracil
+  ~     All rights reserved.
+  ~     New BSD license. See http://en.wikipedia.org/wiki/Bsd_license
+  ~
+  ~     Redistribution and use in source and binary forms, with or without
+  ~     modification, are permitted provided that the following conditions are met:
+  ~        * Redistributions of source code must retain the above copyright
+  ~          notice, this list of conditions and the following disclaimer.
+  ~        * Redistributions in binary form must reproduce the above copyright
+  ~          notice, this list of conditions and the following disclaimer in the
+  ~          documentation and/or other materials provided with the distribution.
+  ~        * The name of Bastien Aracil may not be used to endorse or promote products
+  ~          derived from this software without specific prior written permission.
+  ~
+  ~     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~     DISCLAIMED. IN NO EVENT SHALL BASTIEN ARACIL BE LIABLE FOR ANY
+  ~     DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~     ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~ */
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>net.femtoparsec.jwhois</groupId>
+    <artifactId>jwhois-maven</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+    <organization>
+        <name>Femtoparsec</name>
+        <url>http://www.femtoparsec.net</url>
+    </organization>
+    <name>${application.name} - POM Parent</name>
+    <url>${application.url.root}/${module.short-name}</url>
+
+
+    <properties>
+        <application.group>net.femtoparsec.jwhois</application.group>
+        <application.name>FPC JWhoIs</application.name>
+        <application.version>${project.version}</application.version>
+        <application.url.root>http://femtoparsec.net/jwhois</application.url.root>
+        <module.short-name>maven</module.short-name>
+    </properties>
+
+    <developers>
+        <developer>
+            <id>baracil</id>
+            <name>Bastien Aracil</name>
+            <email>bastienaracil@femtoparsec.net</email>
+            <organization>Femtoparsec</organization>
+            <organizationUrl>http://www.femtoparsec.net</organizationUrl>
+        </developer>
+    </developers>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.7</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.easytesting</groupId>
+            <artifactId>fest-assert</artifactId>
+            <version>1.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>net.sourceforge.collections</groupId>
+                <artifactId>collections-generic</artifactId>
+                <version>4.01</version>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.12</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!--dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+                <version>1.5.2</version>
+                <scope>runtime</scope>
+            </dependency-->
+            <dependency>
+                <groupId>net.femtoparsec.jwhois</groupId>
+                <artifactId>jwhois-utils</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.femtoparsec.jwhois</groupId>
+                <artifactId>jwhois-core</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.femtoparsec.jwhois</groupId>
+                <artifactId>jwhois-gui</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>net.femtoparsec.jwhois</groupId>
+                <artifactId>jwhois-text-impl</artifactId>
+                <version>${application.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources/i18n</directory>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>2.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>osxappbundle-maven-plugin</artifactId>
+                <version>1.0-alpha-2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.bluestemsoftware.open.maven.plugin</groupId>
+                <artifactId>launch4j-plugin</artifactId>
+                <version>1.5.0.0</version>
+            </plugin>
+            <!--plugin>
+                   <artifactId>maven-assembly-plugin</artifactId>
+                   <configuration>
+                       <descriptors>
+                           <descriptor>../maven/src/packaging/exe.xml</descriptor>
+                       </descriptors>
+                   </configuration>
+               </plugin-->
+        </plugins>
+    </build>
+</project>

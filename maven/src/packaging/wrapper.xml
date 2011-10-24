@@ -1,0 +1,110 @@
+<!--
+  ~ /*
+  ~     Copyright (c) 2011, Bastien Aracil
+  ~     All rights reserved.
+  ~     New BSD license. See http://en.wikipedia.org/wiki/Bsd_license
+  ~
+  ~     Redistribution and use in source and binary forms, with or without
+  ~     modification, are permitted provided that the following conditions are met:
+  ~        * Redistributions of source code must retain the above copyright
+  ~          notice, this list of conditions and the following disclaimer.
+  ~        * Redistributions in binary form must reproduce the above copyright
+  ~          notice, this list of conditions and the following disclaimer in the
+  ~          documentation and/or other materials provided with the distribution.
+  ~        * The name of Bastien Aracil may not be used to endorse or promote products
+  ~          derived from this software without specific prior written permission.
+  ~
+  ~     THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+  ~     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+  ~     WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  ~     DISCLAIMED. IN NO EVENT SHALL BASTIEN ARACIL BE LIABLE FOR ANY
+  ~     DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+  ~     (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+  ~     LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+  ~     ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  ~     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+  ~     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  ~ */
+  -->
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemalocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+02	  <modelversion>4.0.0</modelversion>
+03	  <groupid>com.jayway.wrappedapplication</groupid>
+04	  <artifactid>launcher</artifactid>
+05	<packaging>jar</packaging>
+06	  <version>1.0-SNAPSHOT</version>
+07	  <name>launcher</name>
+08	  <url>http://maven.apache.org</url>
+09	<profiles>
+10	<profile>
+11	      <id>windows-deploy</id>
+12	      <activation>
+13	        <os>
+14	          <family>Windows</family>
+15	        </os>
+16	      </activation>
+17	      <build>
+18	<plugins>
+19	<plugin>
+20	            <groupid>org.bluestemsoftware.open.maven.plugin</groupid>
+21	            <artifactid>launch4j-plugin</artifactid>
+22	            <version>1.5.0.0</version>
+23	            <executions>
+24	              <execution>
+25	                <id>launch4j</id>
+26	<phase>verify</phase>
+27	                <goals>
+28	                  <goal>launch4j</goal>
+29	                </goals>
+30	                <configuration>
+31	                  <dontwrapjar>false</dontwrapjar>
+32	<headertype>gui</headertype>
+33	                  <outfile>${project.build.directory}/relauncher-${project.version}.exe</outfile>
+34	                  <jar>${project.build.directory}/${project.build.finalName}.jar</jar>
+35	                  <errtitle>Launcher</errtitle>
+36	                  <jre>
+37	                    <minversion>1.6.0</minversion>
+38	                  </jre>
+39	                  <classpath>
+40	                    <mainclass>com.jayway.wrappedapplication.Launcher</mainclass>
+41	                    <adddependencies>false</adddependencies>
+42	<precp>anything</precp>
+43	                  </classpath>
+44	                  <icon>${basedir}/build-resources/win/icons/application.ico</icon>
+45	                </configuration>
+46	              </execution>
+47	            </executions>
+48	          </plugin>
+49	        </plugins>
+50	      </build>
+51	    </profile>
+52	<profile>
+53	      <activation>
+54	        <os>
+55	          <family>mac</family>
+56	        </os>
+57	      </activation>
+58	      <build>
+59	<plugins>
+60	<plugin>
+61	            <groupid>org.codehaus.mojo</groupid>
+62	            <artifactid>osxappbundle-maven-plugin</artifactid>
+63	            <version>1.0-alpha-2</version>
+64	            <configuration>
+65	              <mainclass>com.jayway.wrappedapplication.Launcher</mainclass>
+66	              <iconfile>${basedir}/build-resources/osx/icons/application.icns</iconfile>
+67	            </configuration>
+68	            <executions>
+69	              <execution>
+70	<phase>package</phase>
+71	                <goals>
+72	                  <goal>bundle</goal>
+73	                </goals>
+74	              </execution>
+75	            </executions>
+76	          </plugin>
+77	        </plugins>
+78	      </build>
+79	    </profile>
+80	  </profiles>
+81	</project>
