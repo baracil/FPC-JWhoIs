@@ -41,12 +41,21 @@ import java.net.URLConnection;
  */
 
 /**
+ * A provider that uses an HTTP connection to perform the WhoIs query
+ *
  * User: Bastien Aracil
  * Date: 22/10/11
  */
 public abstract class HTTPProvider extends AbstractProvider {
 
+    /**
+     * Create an HTTP provider
+     * @param name the name of the provider
+     * @param resultFormat the format of the WhoIs results return by this provider
+     * @param providedSources the list of sources this provider can provide
+     */
     public HTTPProvider(String name, Format resultFormat, Source... providedSources) {
+        //HTTP provider can handle proxy connection, thus the true value for the third parameter
         super(name, resultFormat, true, providedSources);
     }
 
@@ -74,5 +83,12 @@ public abstract class HTTPProvider extends AbstractProvider {
         connection.setDoInput(true);
     }
 
+    /**
+     * @param query the WhoIs query
+     * @param source the source for the query
+     * @return an URL that can be used to retrieve the WhoIs result
+     * @throws UnsupportedEncodingException
+     * @throws MalformedURLException
+     */
     protected abstract URL getUrl(String query, Source source) throws UnsupportedEncodingException, MalformedURLException;
 }

@@ -30,6 +30,8 @@ package net.femtoparsec.jwhois;
  */
 
 /**
+ * An basic implementation of the SourceProvider interface
+ *
  * User: Bastien Aracil
  * Date: 23/10/11
  */

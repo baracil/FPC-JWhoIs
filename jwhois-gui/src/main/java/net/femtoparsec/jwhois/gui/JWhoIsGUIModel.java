@@ -93,7 +93,7 @@ public class JWhoIsGUIModel<S extends SourceProvider> {
     }
 
     public void selectSource(Source source, boolean selected) {
-        boolean changed = false;
+        boolean changed;
         if (selected) {
             changed = this.selectedSources.add(source);
         }

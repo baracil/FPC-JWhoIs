@@ -38,6 +38,9 @@ import java.util.Set;
  */
 
 /**
+ * A basic implementation of the {@link GenericWhoIs} client. This implementation use the core {@link WhoIs} client
+ * and a transformer to get the result in the generic type.
+ * 
  * User: Bastien Aracil
  * Date: 23/10/11
  */
@@ -46,11 +49,20 @@ public class SimpleGenericWhoIs<S> implements GenericWhoIs<S> {
     private final WhoIs whoIs;
 
     private final Transformer<SourceResult, S> transformer;
-    
+
+    /**
+     * Create a SimpleGenericWhoIs with the default {@link WhoIs} client implementation : {@link JWhoIs}
+     * @param transformer The transformer used to convert the byte[] data into the generic object
+     */
     public SimpleGenericWhoIs(Transformer<SourceResult, S> transformer) {
         this(new JWhoIs(), transformer);
     }
 
+    /**
+     * Create a SimpleGenericWhoIs
+     * @param whoIs the basic WhoIs client used to performed the queries
+     * @param transformer the transformer used to convert the result of the given WhoIs client to the generic format
+     */
     public SimpleGenericWhoIs(WhoIs whoIs, Transformer<SourceResult, S> transformer) {
         Validate.notNull(whoIs, "whoIs");
         Validate.notNull(transformer, "transformer");

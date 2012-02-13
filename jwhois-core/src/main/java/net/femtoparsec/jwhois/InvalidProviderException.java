@@ -44,4 +44,12 @@ public class InvalidProviderException extends Throwable {
         this.providerName = provider.getName();
         this.message = message;
     }
+
+    public String getProviderName() {
+        return providerName;
+    }
+
+    public String getMessage() {
+        return message;
+    }
 }

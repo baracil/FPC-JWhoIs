@@ -38,6 +38,8 @@ import java.util.Set;
  */
 
 /**
+ * A WhoIs client that delegates the work to another WhoIs client
+ *
  * User: Bastien Aracil
  * Date: 21/10/11
  */
@@ -45,12 +47,12 @@ public class ProxyWhoIs implements WhoIs {
 
     private WhoIs delegate;
 
+    /**
+     * Create a ProxyWhoIs with the given WhoIs client
+     * @param delegate the WhoIs client that will be used by this ProxyWhoIs
+     */
     public ProxyWhoIs(WhoIs delegate) {
         this.delegate = delegate;
-    }
-
-    public ProxyWhoIs() {
-        this.delegate = null;
     }
 
     @Override
@@ -66,13 +68,5 @@ public class ProxyWhoIs implements WhoIs {
     @Override
     public Set<SourceResult> request(String query, Set<Source> sources) {
         return delegate.request(query, sources);
-    }
-
-    public WhoIs getDelegate() {
-        return this.delegate;
-    }
-
-    public void setDelegate(WhoIs delegate) {
-        this.delegate = delegate;
     }
 }

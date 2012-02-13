@@ -30,15 +30,15 @@ package net.femtoparsec.jwhois;
  */
 
 /**
+ * List of possible formats of the response of the providers
+
  * User: Bastien Aracil
  * Date: 22/10/11
- *
- * List of possible formats of the response of the providers
  */
 public enum Format {
 
     UNKNOWN,
     XML,
     RPSL,
-    JSON;
+    JSON
 }

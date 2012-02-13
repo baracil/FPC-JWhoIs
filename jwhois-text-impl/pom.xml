@@ -43,7 +43,7 @@
     <name>${application.name} - ${module.name}</name>
 
     <properties>
-        <module.name>Custom version of the core whois</module.name>
+        <module.name>Custom version of the core WhoIs</module.name>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 

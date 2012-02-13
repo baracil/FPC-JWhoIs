@@ -30,6 +30,8 @@ package net.femtoparsec.jwhois;
  */
 
 /**
+ * Provide a {@link Source}
+ *
  * User: Bastien Aracil
  * Date: 23/10/11
  */

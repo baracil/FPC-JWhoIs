@@ -33,6 +33,11 @@ import java.util.Set;
  */
 
 /**
+ * A generic WhoIs client. This is the same as the WhoIs client but this one can return
+ * custom result os type &lt;S&gt;.
+ *
+ *
+ *
  * User: Bastien Aracil
  * Date: 23/10/11
  */
@@ -52,9 +57,9 @@ public interface GenericWhoIs<S> {
     void setProxy(Proxy proxy);
 
     /**
-     * @param query the whois query
+     * @param query the WhoIs query
      * @param sources the {@link Source}
-     * @return
+     * @return a Set of result for the given source
      */
     Set<S> request(String query, Set<Source> sources);
 

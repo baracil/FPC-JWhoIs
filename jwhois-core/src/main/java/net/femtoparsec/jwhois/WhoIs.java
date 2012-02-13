@@ -29,10 +29,12 @@ import java.util.Set;
  *     ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  *     (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  *     SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- * /
+ *
  */
 
 /**
+ * A WhoIs client that returns {@link SourceResult} data.
+ * 
  * User: Bastien Aracil
  * Date: 21/10/11
  */
@@ -40,21 +42,21 @@ public interface WhoIs extends GenericWhoIs<SourceResult> {
 
     /**
      * @param format the preferred format. If multiple providers are available
-     * for a given {@link Source}, the provider that returns in the preferred format
+     * for a given {@link Source}, the provider that returns data in the preferred format
      * will be selected in priority.
      */
     void setPreferredFormat(Format format);
 
     /**
      * @param proxy the proxy needed to connect to the providers. If no proxy is needed, the value null
-     * should be used.
+     * must be used.
      */
     void setProxy(Proxy proxy);
 
     /**
-     * @param query the whois query
+     * @param query the WhoIs query
      * @param sources the {@link Source}
-     * @return
+     * @return the results of the query performed on the given sources
      */
     Set<SourceResult> request(String query, Set<Source> sources);
 

@@ -30,6 +30,8 @@ package net.femtoparsec.jwhois.utils;
  */
 
 /**
+ * A simple implementation of a pair of object
+ *
  * User: Bastien Aracil
  * Date: 23/10/11
  */
@@ -39,6 +41,13 @@ public class Pair<FIRST,SECOND> {
 
     private SECOND second;
 
+    /**
+     * @param first the first object
+     * @param second the second object
+     * @param <FIRST> the type of the first object
+     * @param <SECOND> the type of the second object
+     * @return a Pair of the two given objects
+     */
     public static <FIRST, SECOND> Pair<FIRST, SECOND> of(FIRST first, SECOND second) {
         return new Pair<FIRST, SECOND>(first, second);
     }
@@ -62,5 +71,25 @@ public class Pair<FIRST,SECOND> {
 
     public void setSecond(SECOND second) {
         this.second = second;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Pair pair = (Pair) o;
+
+        if (first != null ? !first.equals(pair.first) : pair.first != null) return false;
+        if (second != null ? !second.equals(pair.second) : pair.second != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = first != null ? first.hashCode() : 0;
+        result = 31 * result + (second != null ? second.hashCode() : 0);
+        return result;
     }
 }

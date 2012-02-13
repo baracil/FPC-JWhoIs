@@ -38,11 +38,18 @@ import java.util.List;
  */
 
 /**
+ * Utility class
+ *
  * User: Bastien Aracil
  * Date: 23/10/11
  */
 public class ByteUtils {
 
+    /**
+     * Convert an array of bytes to an array of lines
+     * @param data the given array of bytes
+     * @return an array of string
+     */
     public static String[] bytesToStrings(byte[] data) {
         if (data == null) {
             return null;

@@ -35,6 +35,8 @@ import java.util.Set;
  */
 
 /**
+ * Utility class to ease the management of WhoIs query results
+ *
  * User: Bastien Aracil
  * Date: 21/10/11
  */

@@ -41,6 +41,8 @@ import java.util.Set;
  */
 
 /**
+ * The core implementation of the WhoIs client
+ *
  * User: Bastien Aracil
  * Date: 22/10/11
  */
@@ -54,6 +56,9 @@ public class JWhoIs implements WhoIs {
 
     private Format preferredFormat;
 
+    /**
+     * Create a JWhoIs client
+     */
     public JWhoIs() {
         this.providerManager = new DefaultProviderManager();
         this.preferredFormat = DEFAULT_PREFERRED_FORMAT;
@@ -83,6 +88,9 @@ public class JWhoIs implements WhoIs {
         return requestResults;
     }
 
+    /**
+     * inner utility class. Handles source availability, proxy setting ...
+     */
     private static class RequestEvaluator {
 
         private final String query;

@@ -4,6 +4,7 @@ import net.femtoparsec.jwhois.Source;
 import net.femtoparsec.jwhois.SourceResult;
 import net.femtoparsec.jwhois.WhoIs;
 
+import java.lang.ref.SoftReference;
 import java.util.*;
 
 /*
@@ -36,12 +37,18 @@ import java.util.*;
  */
 
 /**
+ * A WhoIs client that cache the query results.
+ *
+ *
  * User: Bastien Aracil
  * Date: 21/10/11
  */
 public class CachedWhoIs extends ProxyWhoIs {
 
-    private final Map<String, Map<Source, SourceResult>> cache = new TreeMap<String, Map<Source, SourceResult>>();
+    /**
+     * The cached query results
+     */
+    private final Map<String, SoftReference<Map<Source, SourceResult>>> cache = new TreeMap<String, SoftReference<Map<Source, SourceResult>>>();
 
     public CachedWhoIs(WhoIs delegate) {
         super(delegate);
@@ -49,22 +56,31 @@ public class CachedWhoIs extends ProxyWhoIs {
 
     @Override
     public Set<SourceResult> request(String query, Set<Source> sources) {
+         //Will contain the list of source for which not result could be found in the cache
         Set<Source> missingSource = new HashSet<Source>();
 
+         //Will contain the results of the request
         Set<SourceResult> results = new HashSet<SourceResult>(sources.size());
 
+         // Retrieve all the available cached result and fill in the missingSource
+         // with the sources that does not have cached result
         for (Source source : sources) {
+            //get the cached result
             SourceResult result = this.getFromCache(query, source);
             if (result == null) {
+                //no cache result, add the source to the missing source list
                 missingSource.add(source);
             }
             else {
+                //add the result to the results
                 results.add(result);
             }
         }
 
         if (!missingSource.isEmpty()) {
+            //Perform a WhoIs query for all the sources missing a cached result
             Set<SourceResult> missingResults = super.request(query, missingSource);
+            //Add the result to the cache
             for (SourceResult result : missingResults) {
                 this.setToCache(query, result);
                 results.add(result);
@@ -74,24 +90,45 @@ public class CachedWhoIs extends ProxyWhoIs {
         return results;
     }
 
+    /**
+     * Retrieve the query result from the cache
+     * @param query the query
+     * @param source the source queried
+     * @return the cached result, null if not cached
+     */
     private SourceResult getFromCache(String query, Source source) {
         final String queryKey = query.toLowerCase();
 
-        Map<Source, SourceResult> map = this.cache.get(queryKey);
+        Map<Source, SourceResult> map = this.getValue(queryKey);
+
         return map == null ? null : map.get(source);
     }
 
+    /**
+     * Put the result into the cache
+     * @param query the query
+     * @param result the result to cache
+     */
     private void setToCache(String query, SourceResult result) {
         final String queryKey = query.toLowerCase();
 
-        Map<Source, SourceResult> map = this.cache.get(queryKey);
+        Map<Source, SourceResult> map = this.getValue(queryKey);
+        
         if (map == null) {
             map = new IdentityHashMap<Source, SourceResult>();
-            this.cache.put(queryKey, map);
+            this.cache.put(queryKey, new SoftReference<Map<Source, SourceResult>>(map));
         }
         map.put(result.getSource(), result);
     }
 
+    private Map<Source, SourceResult> getValue(String queryKey) {
+        SoftReference<Map<Source, SourceResult>> mapReference = this.cache.get(queryKey);
+       return (mapReference == null ? null : mapReference.get());
+    }
+    
+    /**
+     * Clear all the cache
+     */
     public void clearCache() {
         this.cache.clear();
     }

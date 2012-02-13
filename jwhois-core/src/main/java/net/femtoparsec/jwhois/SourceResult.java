@@ -30,18 +30,36 @@ package net.femtoparsec.jwhois;
  */
 
 /**
+ * The basic result of a WhoIs query
+ *
  * User: Bastien Aracil
  * Date: 21/10/11
  */
 public interface SourceResult extends SourceProvider {
 
+    /**
+     * @return the query used
+     */
     public String getQuery();
 
+    /**
+     * @return if true, the query was successful, otherwise an error occurred and {@link net.femtoparsec.jwhois.SourceResult#getErrorMessage()} should be check
+     */
+    public boolean isValid();
+
+    /**
+     * @return the answer to the query, null if the result is invalid
+     */
     public byte[] getData();
 
+    /**
+     * @return the error message, null if the result is valid (i.e. {@link net.femtoparsec.jwhois.SourceResult#isValid()} returns true
+     */
     public String getErrorMessage();
 
+    /**
+     * @return the format of the answer
+     */
     public Format getFormat();
 
-    public boolean isValid();
 }

@@ -53,7 +53,7 @@ public class JWhoIsTest {
     }
 
     public static void main(String[] args) {
-        //Let's create a default whois client
+        //Let's create a default WhoIs client
         //the client can be cached avoiding multiple search for the same query
         //just wrap the WhoIs in a CachedWhoIs like new CachedWhoIs(otherWhoIs)
         WhoIs whoIs = new JWhoIs();

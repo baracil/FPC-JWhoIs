@@ -32,6 +32,8 @@ import org.apache.commons.lang.StringUtils;
  */
 
 /**
+ * A basic implementation of the SourceResult interface.
+ *
  * User: Bastien Aracil
  * Date: 23/10/11
  */
@@ -65,6 +67,7 @@ public class DefaultSourceResult extends AbstractSourceProvider implements Sourc
         return result;
     }
 
+    @Override
     public String getQuery() {
         return query;
     }
@@ -73,6 +76,7 @@ public class DefaultSourceResult extends AbstractSourceProvider implements Sourc
         this.query = query;
     }
 
+    @Override
     public Format getFormat() {
         return format;
     }
@@ -81,6 +85,7 @@ public class DefaultSourceResult extends AbstractSourceProvider implements Sourc
         this.format = format;
     }
 
+    @Override
     public byte[] getData() {
         return data;
     }
@@ -89,6 +94,7 @@ public class DefaultSourceResult extends AbstractSourceProvider implements Sourc
         this.data = data;
     }
 
+    @Override
     public String getErrorMessage() {
         return errorMessage;
     }
@@ -97,6 +103,7 @@ public class DefaultSourceResult extends AbstractSourceProvider implements Sourc
         this.errorMessage = errorMessage;
     }
 
+    @Override
     public boolean isValid() {
         return StringUtils.isEmpty(this.errorMessage);
     }

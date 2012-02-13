@@ -35,21 +35,60 @@ import java.util.Set;
  */
 
 /**
+ * A provider is responsible to answer a WhoIs query for a given source.
+ *
  * User: Bastien Aracil
  * Date: 22/10/11
  */
 public interface Provider {
 
+    /**
+     * @return the name of the provider
+     */
     String getName();
 
+    /**
+     * @return the sources this provider can povide
+     */
     Set<Source> getProvidedSources();
 
-    boolean handleProxy();
-
+    /**
+     * @param source the source to test
+     * @return true if this provider can provide WhoIs information for the given source.
+     *
+     * This is equivalent to a test of existence of the given source in the set returns by the method {#getProvidedSources}.
+     */
     boolean canProvide(Source source);
 
+    /**
+     * @return true if this provider can handle a proxy connection, false otherwise
+     */
+    boolean handleProxy();
+
+    /**
+     * Perform the WhoIs query for a given source. The request is done without proxy.
+     *
+     * @param query the WhoIs query
+     * @param source the WhoIs data source queried
+     * @return an inputStream from which the query result can be read
+     * @throws InvalidSourceException If the provider cannot provide query information for the given source
+     * @throws InvalidQueryException if the query is invalid
+     * @throws IOException if an I/O exception occurred during the request
+     */
     InputStream request(String query, Source source) throws InvalidSourceException, InvalidQueryException, IOException;
 
+    /**
+     * Perform the WhoIs query for a given source. The request is done with proxy.
+     *
+     * @param query the WhoIs query
+     * @param source the WhoIs data source queried
+     * @param proxy the proxy information
+     * @return an inputStream from which the query result can be read
+     * @throws InvalidSourceException if the provider cannot provide query information for the given source
+     * @throws InvalidQueryException if the query is invalid
+     * @throws InvalidProviderException if the provider cannot handle a proxy connection
+     * @throws IOException if an I/O exception occurred during the request
+     */
     InputStream request(String query, Source source, Proxy proxy) throws InvalidSourceException, InvalidQueryException, InvalidProviderException, IOException;
 
     Format getResultFormat();

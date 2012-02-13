@@ -33,11 +33,19 @@ import java.util.Set;
  */
 
 /**
+ * Manage multiple providers
+ * 
  * User: Bastien Aracil
  * Date: 22/10/11
  */
 public interface ProviderManager {
 
+    /**
+     * @param sources The sources requested
+     * @param withProxy true if a proxy connection is requested, false otherwise
+     * @param preferredFormat the preferred {@link Format} for the query result
+     * @return a mao of provider that satisfied the given parameters sorted by {@link Source}.
+     */
     Map<Source, Provider> getProviders(Set<Source> sources, boolean withProxy, Format preferredFormat);
 
 }

@@ -30,6 +30,9 @@ package net.femtoparsec.jwhois;
  */
 
 /**
+ * The sources of WhoIs information known by the application.
+ *
+ *
  * User: Bastien Aracil
  * Date: 22/10/11
  */

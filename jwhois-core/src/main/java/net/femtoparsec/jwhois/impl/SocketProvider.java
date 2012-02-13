@@ -39,12 +39,21 @@ import java.net.Socket;
  */
 
 /**
+ * A provider that uses socket to get the query result.
+ *
  * User: Bastien Aracil
  * Date: 22/10/11
  */
 public abstract class SocketProvider extends AbstractProvider {
 
-    protected SocketProvider(String name, Format resultFormat, Source... providedSources) {
+    /**
+     * Create a socket provider
+     * @param name the name of the provider
+     * @param resultFormat the format of the WhoIs results return by this provider
+     * @param providedSources the list of sources this provider can provide
+     */
+    public SocketProvider(String name, Format resultFormat, Source... providedSources) {
+        //Socket provider cannot handle proxy connection, thus the false value for the third parameter
         super(name, resultFormat, false, providedSources);
     }
 
@@ -56,6 +65,11 @@ public abstract class SocketProvider extends AbstractProvider {
         return socket.getInputStream();
     }
 
+    /**
+     * @param source the source
+     * @return a Socket for the given source
+     * @throws IOException if an I/O error occurred
+     */
     protected abstract Socket getSocket(Source source) throws IOException;
 
     @Override

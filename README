@@ -1,3 +1,3 @@
-JWhoIs is a simple whois client library. By default, the client returns raw data (in a byte array) but it can be customized (the library contains a version that returns plain text). The library has also a Swing GUI that can be used in any Swing application.
+JWhoIs is a simple WhoIs client library. By default, the client returns raw data (in a byte array) but it can be customized (the library contains a version that returns plain text). The library has also a Swing GUI that can be used in any Swing application.
 
 There are currently no documentation but three examples can be checked for some insights : JWhoIsTest, TextWhoIsTest and JTextWhoIsGUITest.

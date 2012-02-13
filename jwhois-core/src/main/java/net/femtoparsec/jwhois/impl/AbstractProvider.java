@@ -41,19 +41,40 @@ import java.util.Set;
  */
 
 /**
+ * A partial implementation of the interface Provider
+ *
  * User: Bastien Aracil
  * Date: 22/10/11
  */
 public abstract class AbstractProvider implements Provider {
 
+    /**
+     * The set of sources the provider can query
+     */
     private final Set<Source> providedSources;
 
+    /**
+     * Indicates if this provider can handle a proxy connection
+     */
     private final boolean handleProxy;
 
+    /**
+     * The result format of this provider
+     */
     private final Format resultFormat;
 
+    /**
+     * The name of the provider
+     */
     public final String name;
 
+    /**
+     * Create a provider
+     * @param name the name of the provider
+     * @param resultFormat the format of the WhoIs results return by this provider
+     * @param handleProxy true if the provider can handle proxy
+     * @param providedSources the list of sources this provider can provide
+     */
     public AbstractProvider(String name, Format resultFormat, boolean handleProxy, Source... providedSources) {
         Validate.noNullElements(providedSources, "providedSources");
 
@@ -108,8 +129,25 @@ public abstract class AbstractProvider implements Provider {
         return this.doRequest(query, source, proxy);
     }
 
+    /**
+     * Same as the {@link Provider#request(String, net.femtoparsec.jwhois.Source)} but after integrity check, i.e.
+     * there is no need to check if the query or the source if empty and if this provider can handle the given source
+     * @param query the WhoIs query
+     * @param source the WhoIs data source queried
+     * @throws IOException if an I/O exception occurred during the request
+     * @return an inputStream from which the query result can be read
+     */
     protected abstract InputStream doRequest(String query, Source source) throws IOException;
 
+    /**
+     * Same as the {@link Provider#request(String, net.femtoparsec.jwhois.Source, Proxy)} but after integrity check, i.e.
+     * there is no need to check if the query or the source if empty and if this provider can handle proxy and the given source
+     * @param query the WhoIs query
+     * @param source the WhoIs data source queried
+     * @param proxy the proxy information
+     * @return an inputStream from which the query result can be read
+     * @throws IOException if an I/O exception occurred during the request
+     */
     protected abstract InputStream doRequest(String query, Source source, Proxy proxy) throws IOException;
 
     private void checkQuery(String query) throws InvalidQueryException {
